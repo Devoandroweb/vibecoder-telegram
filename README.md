@@ -72,26 +72,6 @@ The initializer injects these scripts into the target `package.json`:
 - `telegram:start`
 - `telegram:env`
 
-## Publish to npm
-
-1. Update the version in `package.json`.
-2. Log in to npm:
-
-```bash
-npm login
-```
-
-3. Publish the package:
-
-```bash
-npm publish --access public
-```
-
-4. Verify the published package by running:
-
-```bash
-npx vibecoder-telegram --help
-```
 
 ## Notes
 
