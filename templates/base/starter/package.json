@@ -1,0 +1,11 @@
+{
+  "name": "vibe-starter",
+  "version": "0.1.0",
+  "description": "Starter project for vibecoder-telegram",
+  "main": "src/index.js",
+  "scripts": {
+    "telegram:start": "node telegram/bot.js",
+    "telegram:env": "cp .env.example .env || copy .env.example .env"
+  },
+  "license": "MIT"
+}

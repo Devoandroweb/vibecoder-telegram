@@ -1,0 +1,39 @@
+{
+  "name": "@androwebdev/vibecoder-telegram",
+  "version": "1.0.12",
+  "description": "A CLI package that scaffolds a Telegram-based coding assistant into an existing Node.js project.",
+  "bin": {
+    "vibecoder-telegram": "bin/cli.js"
+  },
+  "main": "src/init.js",
+  "files": [
+    "bin/cli.js",
+    "src",
+    "templates",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --version"
+  },
+  "keywords": [
+    "telegram",
+    "cli",
+    "scaffold",
+    "coding-assistant",
+    "nodejs",
+    "bot"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.0.0",
+    "dotenv": "^16.4.3",
+    "fs-extra": "^11.1.1",
+    "node-telegram-bot-api": "^0.61.0",
+    "ora": "^9.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

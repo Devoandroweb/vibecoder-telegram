@@ -1,0 +1,9 @@
+{
+  "name": "vibecoder-telegram-template",
+  "version": "1.0.0",
+  "description": "Scripts and metadata used by vibecoder-telegram initializer.",
+  "scripts": {
+    "telegram:start": "node telegram/bot.js",
+    "telegram:env": "node -e \"const fs=require('fs'); fs.copyFileSync('.env.example', '.env'); console.log('.env created from .env.example');\""
+  }
+}
