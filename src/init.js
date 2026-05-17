@@ -23,11 +23,11 @@ async function mergeScripts(targetPath, metas = [], logger) {
     targetPackage = await fs.readJson(packageJsonPath);
   } else {
     const defaultName = path.basename(targetPath) || 'vibe-coder-telegram-project';
-    targetPackage = {
+      targetPackage = {
       name: defaultName,
       version: '1.0.0',
       description: 'Generated Telegram-based coding assistant',
-      main: 'telegram/bot.js',
+      main: 'telegram/bot.cjs',
       scripts: {},
       license: 'MIT'
     };

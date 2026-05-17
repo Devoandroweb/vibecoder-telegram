@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "telegram:start": "node telegram/bot.js",
+    "telegram:start": "node telegram/bot.cjs",
     "telegram:env": "cp .env.example .env || copy .env.example .env"
   }
 }
