@@ -1,13 +1,13 @@
-const path = require('path');
-const dotenv = require('dotenv');
-const TelegramBot = require('node-telegram-bot-api');
-const logger = require('./utils/logger');
-const handleCmd = require('./commands/cmd');
-const handleNew = require('./commands/new');
-const handlePing = require('./commands/ping');
-const handleVibe = require('./commands/vibe');
-const handlePrompt = require('./commands/prompt');
-const handleCopilot = require('./commands/copilot');
+import path from 'path';
+import dotenv from 'dotenv';
+import TelegramBot from 'node-telegram-bot-api';
+import logger from './utils/logger.js';
+import handleCmd from './commands/cmd.js';
+import handleNew from './commands/new.js';
+import handlePing from './commands/ping.js';
+import handleVibe from './commands/vibe.js';
+import handlePrompt from './commands/prompt.js';
+import handleCopilot from './commands/copilot.js';
 
 dotenv.config();
 

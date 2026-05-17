@@ -1,4 +1,4 @@
-const { runShellCommand } = require('../utils/exec');
+import { runShellCommand } from '../utils/exec.js';
 
 function formatOutput(value) {
   if (!value) {
@@ -8,7 +8,7 @@ function formatOutput(value) {
   return value.length > 3800 ? `${value.slice(0, 3800)}\n\n[Output truncated]` : value;
 }
 
-module.exports = async function handleCmd(bot, msg, commandText, allowedIds, logger) {
+export default async function handleCmd(bot, msg, commandText, allowedIds, logger) {
   const chatId = String(msg.chat.id);
 
   if (!allowedIds.includes(chatId)) {

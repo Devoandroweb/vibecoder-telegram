@@ -15,7 +15,7 @@ function resolvePackageJson(targetPath) {
   return path.join(targetPath, 'package.json');
 }
 
-async function mergeScripts(targetPath, metas = [], logger) {
+async function mergeScripts(targetPath, metas = [], logger, forceOverwrite = false) {
   const packageJsonPath = resolvePackageJson(targetPath);
   let targetPackage = {};
 
@@ -27,7 +27,7 @@ async function mergeScripts(targetPath, metas = [], logger) {
       name: defaultName,
       version: '1.0.0',
       description: 'Generated Telegram-based coding assistant',
-      main: 'telegram/bot.cjs',
+      main: 'telegram/bot.js',
       scripts: {},
       license: 'MIT'
     };
@@ -41,6 +41,9 @@ async function mergeScripts(targetPath, metas = [], logger) {
       if (!targetPackage.scripts[scriptName]) {
         targetPackage.scripts[scriptName] = newScripts[scriptName];
         logger.info(`Injected script: ${scriptName}`);
+      } else if (forceOverwrite && targetPackage.scripts[scriptName] !== newScripts[scriptName]) {
+        targetPackage.scripts[scriptName] = newScripts[scriptName];
+        logger.info(`Updated script: ${scriptName}`);
       } else {
         logger.warn(`Script already exists, skipping: ${scriptName}`);
       }
@@ -63,6 +66,7 @@ async function initProject(target, options = {}) {
   const targetPath = formatTargetPath(target);
   const spinner = ora(`Initializing project at ${targetPath}`).start();
   const useStarter = !!options.starter;
+  const forceOverwrite = !!options.force;
 
   try {
     await fs.ensureDir(targetPath);
@@ -72,7 +76,7 @@ async function initProject(target, options = {}) {
       if (await fs.pathExists(starterSource)) {
         spinner.text = 'Copying starter scaffold...';
         await fs.copy(starterSource, targetPath, {
-          overwrite: false,
+          overwrite: forceOverwrite,
           errorOnExist: false
         });
       } else {
@@ -83,14 +87,16 @@ async function initProject(target, options = {}) {
     const telegramSource = path.join(TEMPLATE_BASE, 'telegram');
     const telegramDestination = path.join(targetPath, 'telegram');
     await fs.copy(telegramSource, telegramDestination, {
-      overwrite: false,
+      overwrite: forceOverwrite,
       errorOnExist: false
     });
 
     const envSource = path.join(TEMPLATE_BASE, '.env.example');
     const envDestination = path.join(targetPath, '.env.example');
-    if (!(await fs.pathExists(envDestination)) && (await fs.pathExists(envSource))) {
-      await fs.copy(envSource, envDestination, { overwrite: false });
+    if (await fs.pathExists(envSource)) {
+      if (forceOverwrite || !(await fs.pathExists(envDestination))) {
+        await fs.copy(envSource, envDestination, { overwrite: forceOverwrite });
+      }
     }
 
     const metas = [];
@@ -109,7 +115,7 @@ async function initProject(target, options = {}) {
       info: (message) => spinner.info(chalk.blue(message)),
       warn: (message) => spinner.warn(chalk.yellow(message)),
       succeed: (message) => spinner.succeed(chalk.green(message))
-    });
+    }, forceOverwrite);
 
     spinner.text = 'Installing packages and finalizing setup...';
     installDependencies(targetPath, {
@@ -120,6 +126,9 @@ async function initProject(target, options = {}) {
 
     spinner.succeed('Telegram assistant scaffold created successfully.');
     console.log(chalk.green('Done!'));
+    if (forceOverwrite) {
+      console.log(chalk.yellow('Force mode enabled: telegram files and injected scripts were refreshed.'));
+    }
     console.log(chalk.blue('Next steps:'));
     console.log(`  1. cd ${target ? targetPath : '.'}`);
     console.log('  2. copy .env.example to .env and configure TELEGRAM_BOT_TOKEN and ALLOWED_CHAT_ID');

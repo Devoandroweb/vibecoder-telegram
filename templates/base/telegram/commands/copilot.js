@@ -1,4 +1,4 @@
-const { runShellCommand } = require('../utils/exec');
+import { runShellCommand } from '../utils/exec.js';
 
 function formatOutput(value) {
   if (!value) {
@@ -32,7 +32,7 @@ function parsePromptOptions(input) {
   return { prompt: value, allowAll: false };
 }
 
-module.exports = async function handleCopilot(bot, msg, promptText, allowedIds, logger) {
+export default async function handleCopilot(bot, msg, promptText, allowedIds, logger) {
   const chatId = String(msg.chat.id);
 
   if (!allowedIds.includes(chatId)) {

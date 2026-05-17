@@ -1,8 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const { exec } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
 
-module.exports = async function handlePrompt(bot, msg, promptText, allowedIds, openEditorCommand, logger) {
+export default async function handlePrompt(bot, msg, promptText, allowedIds, openEditorCommand, logger) {
   const chatId = String(msg.chat.id);
 
   if (!allowedIds.includes(chatId)) {

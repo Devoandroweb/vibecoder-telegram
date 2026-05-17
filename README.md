@@ -41,6 +41,18 @@ If you want to scaffold into another path:
 npx vibecoder-telegram init path/to/project
 ```
 
+If you already installed an older scaffold and want to refresh Telegram files and scripts after upgrading the package:
+
+```bash
+npx vibecoder-telegram init --force
+```
+
+Or for a specific target:
+
+```bash
+npx vibecoder-telegram init path/to/project --force
+```
+
 ## Generated bot commands
 
 - `/ping` — test bot online

@@ -14,6 +14,7 @@ program
   .command('init [target]')
   .description('Initialize a Telegram assistant in the current or target directory')
   .option('-s, --starter', 'Create a starter project (full scaffold)')
+  .option('-f, --force', 'Overwrite generated Telegram files and refresh injected scripts')
   .action(async (target, options) => {
     try {
       await initProject(target, options || {});
